@@ -69,4 +69,22 @@ public class Board {
     public void setOpen(int x, int y) {
         this.boardArray[x][y] = 1;
     }
+
+    public void click(int x, int y){
+        int xx = x/xunits;
+        int yy = y/yunits;
+        int clicked = boardArray[xx][yy];
+        switch (clicked){
+            case 0:
+                setOpen(xx,yy);
+                break;
+            case 1:
+                break;
+            case 2:
+                setOpenMine(xx,yy);
+                break;
+            case 3:
+                break;
+        }
+    }
 }

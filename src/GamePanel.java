@@ -5,6 +5,8 @@ public class GamePanel extends JPanel {
     int width, height, size, xunits, yunits;
     Board board;
     Game game = Game.getGame();
+    InputHandler inputHandler;
+
     public GamePanel(int width, int height, int size){
         this.width = width;
         this.height = height;
@@ -13,6 +15,8 @@ public class GamePanel extends JPanel {
         this.yunits = height/size;
         this.setFocusable(true);
         this.setPreferredSize(new Dimension(width+size, height+size));
+        inputHandler = new InputHandler();
+        this.addMouseListener(inputHandler);
         board = Game.game.getBoard();
     }
 
@@ -23,28 +27,21 @@ public class GamePanel extends JPanel {
     }
 
     public void draw(Graphics g){
-        g.setColor(Color.black);
-        for (int i = 0; i <= xunits+1; i++) {
-            g.drawLine(xunits*i,0,xunits*i,height);
-        }
-        for (int i = 0; i <= yunits+1; i++) {
-            g.drawLine(0,yunits*i,width,yunits*i);
-        }
-
-            /*
+    /*
     geöffnete Mine: 3
     geschlossene Mine: 2
     geöffnet: 1
     geschlossen: 0
-     */
-        for (int x = 0; x <= xunits; x++) {
-            for (int y = 0; y <= yunits; y++) {
+    */
+        for (int x = 0; x < xunits; x++) {
+            for (int y = 0; y < yunits; y++) {
                 if(board.isOpenMine(x,y)){
+                    g.setColor(Color.red);
                     drawRect(g,Color.red, x,y,size);
                // } else if(board.isClosedMine(x,y)){
                     //weißes viereck
                 } else if(board.isOpen(x,y)){
-                    //drawCross(g,Color.GRAY,x,y,size);
+                    drawCross(g,Color.GRAY,x,y,size);
 
                 //} else if (board.isClosed(x, y)) {
 
@@ -54,17 +51,29 @@ public class GamePanel extends JPanel {
 
         }
 
+
+        g.setColor(Color.black);
+        for (int i = 0; i <= xunits; i++) {
+            g.drawLine(size*i,0,size*i,height);
+        }
+        for (int i = 0; i <= yunits; i++) {
+            g.drawLine(0,size*i,width,size*i);
+        }
+
     }
 
     public void drawCross(Graphics g, Color c, int x, int y, int size) {
         g.setColor(c);
-        g.drawLine(x,y,x+size-1,y+size-1);
-        g.drawLine(x,y+size-1, x+size-1,y);
+        g.drawLine(x*size,y*size,x*size+size, x*size+size);
+        g.drawLine(x*size+size,y*size,x*size, x*size+size);
+
+
 
     }
 
     public void drawRect(Graphics g,Color c, int x, int y, int size){
         g.setColor(c);
-        g.fillRect(x*size+1,y*size+1,size-1,size-1);
+        g.fillRect(x*size,y*size,size,size);
+
     }
 }

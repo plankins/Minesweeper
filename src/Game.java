@@ -15,15 +15,18 @@ public class Game {
         this.width = width;
         this.height = height;
         this.size = size;
-        xunits = width/size;
-        yunits = height/size;
+        this.xunits = width/size;
+        this.yunits = height/size;
 
-        board = new Board(xunits,yunits);
-        frame = new GameFrame(width, height, size);
+        this.board = new Board(xunits,yunits);
+        this.frame = new GameFrame(width, height, size);
 
-        board.setOpen(5,5);
-        board.setOpen(11,11);
-        board.setOpenMine(2,2);
+        this.board.setOpen(5,5);
+        this.board.setOpen(11,11);
+        this.board.setOpenMine(2,yunits-1);
+        this.board.setOpenMine(3,2);
+        this.board.setOpenMine(6,4);
+        this.board.setClosedMine(1,1);
 
         run();
     }

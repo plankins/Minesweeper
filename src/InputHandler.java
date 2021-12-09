@@ -18,6 +18,10 @@ public class InputHandler implements MouseListener, MouseMotionListener, KeyList
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        Game.getGame().board.click(x,y);
+
 
     }
 
