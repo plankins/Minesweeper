@@ -19,14 +19,10 @@ public class Game {
         this.yunits = height/size;
 
         this.board = new Board(xunits,yunits);
+
         this.frame = new GameFrame(width, height, size);
 
-        this.board.setOpen(5,5);
-        this.board.setOpen(11,11);
-        this.board.setOpenMine(2,yunits-1);
-        this.board.setOpenMine(3,2);
-        this.board.setOpenMine(6,4);
-        this.board.setClosedMine(1,1);
+
 
         run();
     }

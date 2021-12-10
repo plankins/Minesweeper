@@ -1,6 +1,9 @@
+import java.awt.*;
 import java.awt.event.*;
 
 public class InputHandler implements MouseListener, MouseMotionListener, KeyListener {
+
+    Game game = Game.getGame();
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -18,16 +21,25 @@ public class InputHandler implements MouseListener, MouseMotionListener, KeyList
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-        Game.getGame().board.click(x,y);
+
 
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        int x = e.getX() / game.size;
+        int y = e.getY() / game.size;
+        if (x < 0 || x > game.xunits - 1 || y < 0 || y > game.yunits - 1) {
+            return;
+        } else {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                //TODO: maustastenabfrage in andere klasse
+                Game.getGame().board.click(x, y);
+            } else if (e.getButton() == MouseEvent.BUTTON3) {
+                Game.getGame().board.setMarked(x,y);
+            }
+        }
     }
 
     @Override
