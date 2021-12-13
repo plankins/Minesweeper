@@ -18,7 +18,6 @@ public class GamePanel extends JPanel {
         inputHandler = new InputHandler();
         this.addMouseListener(inputHandler);
         board = Game.game.getBoard();
-        board.shuffleMines(10);
     }
 
 
@@ -45,7 +44,7 @@ public class GamePanel extends JPanel {
                         drawRect(g, Color.WHITE, x, y, size);
                     }
                         else{
-                            drawCenteredString(g,Color.black, board.countNeighborMines(x, y) + "", x * size, y * size);
+                            drawNeighbourCount(g, x,y);
                         }
 
 
@@ -70,6 +69,7 @@ public class GamePanel extends JPanel {
         }
 
     }
+
 
     public void drawCross(Graphics2D g, Color c, int x, int y, int size) {
         Color prevCol = g.getColor();
@@ -96,5 +96,28 @@ public class GamePanel extends JPanel {
         g.setColor(c);
         g.drawString(text, xx, yy);
         g.setColor(prevCol);
+    }
+
+    public void drawNeighbourCount(Graphics g, int x, int y){
+        Color c;
+        int cnt = board.countNeighborMines(x,y);
+        switch (cnt){
+            case 1:
+                c = Color.blue;
+                break;
+            case 2:
+                c = Color.green;
+                break;
+            case 3:
+                c = Color.red;
+                break;
+            case 4:
+                c = Color.CYAN;
+                break;
+            default:
+                c = Color.black;
+        }
+        drawCenteredString(g,c, cnt+"", x * size, y * size);
+
     }
 }

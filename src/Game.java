@@ -1,5 +1,5 @@
 public class Game {
-    int width, height, size, xunits, yunits;
+    int width, height, size, xunits, yunits, mineCount;
     GameFrame frame;
     public Board board;
 
@@ -9,7 +9,7 @@ public class Game {
     long startTime;
     static Game game;
 
-    public Game(int size, int width, int height){
+    public Game(int size, int width, int height, int mineCount){
         game = this;
 
         this.width = width;
@@ -17,8 +17,9 @@ public class Game {
         this.size = size;
         this.xunits = width/size;
         this.yunits = height/size;
+        this.mineCount = mineCount;
 
-        this.board = new Board(xunits,yunits);
+        this.board = new Board(xunits,yunits,mineCount);
 
         this.frame = new GameFrame(width, height, size);
 
@@ -36,7 +37,7 @@ public class Game {
         while (running) {
             long now = System.nanoTime();
 
-            if((now-lastloop)/1000000 >= 5){
+            if((now-lastloop)/1000000 >= 10){
                 frame.repaint();
 
                 lastloop = now;

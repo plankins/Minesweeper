@@ -31,7 +31,7 @@ public class InputHandler implements MouseListener, MouseMotionListener, KeyList
         int x = e.getX() / game.size;
         int y = e.getY() / game.size;
         if (x < 0 || x > game.xunits - 1 || y < 0 || y > game.yunits - 1) {
-            return;
+            game.board.resetBoard(20);
         } else {
             if (e.getButton() == MouseEvent.BUTTON1) {
                 //TODO: maustastenabfrage in andere klasse
